@@ -1,44 +1,23 @@
 "use client"
 
 import { useState, useEffect, useCallback } from "react"
-import { Menu, X, Eye, Sparkles } from "lucide-react"
+import { Menu, X, Sparkles } from "lucide-react"
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState("Home")
-  const [visitCount, setVisitCount] = useState(0)
   const [isVisible, setIsVisible] = useState(true)
   const [lastScrollY, setLastScrollY] = useState(0)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   const navItems = [
-    { href: "#Home", label: "Home", icon: "🏠" },
-    { href: "#About", label: "About", icon: "👨‍💻" },
-    { href: "#Portfolio", label: "Portfolio", icon: "💼" },
-    { href: "#Achievements", label: "Achievements", icon: "🏆" },
-    { href: "#Contact", label: "Contact", icon: "📧" },
+    { href: "#Home", label: "Home" },
+    { href: "#About", label: "About" },
+    { href: "#Portfolio", label: "Portfolio" },
+    { href: "#Achievements", label: "Achievements" },
+    { href: "#Contact", label: "Contact" },
   ]
-
-  // Visit counter logic
-  useEffect(() => {
-    const getVisitCount = () => {
-      const stored = localStorage.getItem("portfolio-visits")
-      const today = new Date().toDateString()
-      const lastVisit = localStorage.getItem("portfolio-last-visit")
-
-      if (lastVisit !== today) {
-        const newCount = stored ? Number.parseInt(stored) + 1 : 1
-        localStorage.setItem("portfolio-visits", newCount.toString())
-        localStorage.setItem("portfolio-last-visit", today)
-        setVisitCount(newCount)
-      } else {
-        setVisitCount(stored ? Number.parseInt(stored) : 1)
-      }
-    }
-
-    getVisitCount()
-  }, [])
 
   // Mouse tracking for interactive effects
   useEffect(() => {
@@ -115,12 +94,6 @@ const Navbar = () => {
     setIsOpen(false)
   }, [])
 
-  const formatVisitCount = (count) => {
-    if (count >= 1000000) return `${(count / 1000000).toFixed(1)}M`
-    if (count >= 1000) return `${(count / 1000).toFixed(1)}K`
-    return count.toString()
-  }
-
   return (
     <>
       {/* Interactive Background Particle */}
@@ -168,34 +141,6 @@ const Navbar = () => {
               </a>
             </div>
 
-            {/* Visit Counter & Stats */}
-            <div className="hidden lg:flex items-center space-x-6">
-              <div className="flex items-center space-x-4">
-                {/* Visit Counter */}
-                <div className="group relative">
-                  <div className="absolute -inset-1 bg-gradient-to-r from-[#6366f1]/20 to-[#a855f7]/20 rounded-lg blur opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
-                  <div className="relative px-3 py-1.5 bg-black/40 backdrop-blur-xl rounded-lg border border-white/10 group-hover:border-white/20 transition-all duration-300">
-                    <div className="flex items-center space-x-2">
-                      <Eye className="w-4 h-4 text-[#6366f1]" />
-                      <span className="text-sm text-gray-300 font-medium">{formatVisitCount(visitCount)}</span>
-                      <span className="text-xs text-gray-500">visits</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Online Status */}
-                <div className="group relative">
-                  <div className="absolute -inset-1 bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-lg blur opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
-                  <div className="relative px-3 py-1.5 bg-black/40 backdrop-blur-xl rounded-lg border border-white/10 group-hover:border-white/20 transition-all duration-300">
-                    <div className="flex items-center space-x-2">
-                      <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                      <span className="text-sm text-gray-300 font-medium">Online</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
             {/* Desktop Navigation */}
             <div className="hidden md:block">
               <div className="flex items-center space-x-1">
@@ -215,7 +160,6 @@ const Navbar = () => {
 
                     {/* Content */}
                     <div className="relative flex items-center space-x-2">
-                      <span className="text-lg">{item.icon}</span>
                       <span
                         className={`transition-all duration-300 ${
                           activeSection === item.href.substring(1)
@@ -240,14 +184,8 @@ const Navbar = () => {
               </div>
             </div>
 
-            {/* Mobile Menu Button & Stats */}
+            {/* Mobile Menu Button */}
             <div className="md:hidden flex items-center space-x-3">
-              {/* Mobile Visit Counter */}
-              <div className="flex items-center space-x-2 px-2 py-1 bg-black/40 backdrop-blur-xl rounded-lg border border-white/10">
-                <Eye className="w-3 h-3 text-[#6366f1]" />
-                <span className="text-xs text-gray-300 font-medium">{formatVisitCount(visitCount)}</span>
-              </div>
-
               {/* Hamburger Menu */}
               <button
                 onClick={() => setIsOpen(!isOpen)}
@@ -273,24 +211,6 @@ const Navbar = () => {
           }`}
         >
           <div className="px-6 py-8 bg-gradient-to-b from-[#030014] to-[#030014]/95 border-t border-white/5">
-            {/* Mobile Stats */}
-            <div className="flex items-center justify-center space-x-6 mb-8 pb-6 border-b border-white/10">
-              <div className="text-center">
-                <div className="flex items-center justify-center space-x-2 mb-1">
-                  <Eye className="w-4 h-4 text-[#6366f1]" />
-                  <span className="text-lg font-semibold text-white">{formatVisitCount(visitCount)}</span>
-                </div>
-                <span className="text-xs text-gray-400">Total Visits</span>
-              </div>
-              <div className="text-center">
-                <div className="flex items-center justify-center space-x-2 mb-1">
-                  <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                  <span className="text-lg font-semibold text-white">Live</span>
-                </div>
-                <span className="text-xs text-gray-400">Status</span>
-              </div>
-            </div>
-
             {/* Mobile Navigation Items */}
             <div className="space-y-2">
               {navItems.map((item, index) => (
@@ -310,7 +230,6 @@ const Navbar = () => {
                   }}
                 >
                   <div className="flex items-center space-x-4">
-                    <span className="text-2xl">{item.icon}</span>
                     <span
                       className={`transition-colors duration-300 ${
                         activeSection === item.href.substring(1)
@@ -336,19 +255,35 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Scroll Progress Indicator */}
-      <div className="fixed top-0 left-0 w-full h-1 bg-black/20 z-40">
-        <div
-          className="h-full bg-gradient-to-r from-[#6366f1] to-[#a855f7] transition-all duration-300 ease-out"
-          style={{
-            width: `${Math.min(
-              100,
-              (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100,
-            )}%`,
-          }}
-        ></div>
-      </div>
+            {/* Scroll Progress Indicator */}
+      <ScrollProgressIndicator />
     </>
+  )
+}
+
+// Separate component for scroll progress indicator
+const ScrollProgressIndicator = () => {
+  const [scrollProgress, setScrollProgress] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight
+      const progress = (window.scrollY / totalHeight) * 100
+      setScrollProgress(Math.min(100, progress))
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    handleScroll()
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  return (
+    <div className="fixed top-0 left-0 w-full h-1 bg-black/20 z-40">
+      <div
+        className="h-full bg-gradient-to-r from-[#6366f1] to-[#a855f7] transition-all duration-300 ease-out"
+        style={{ width: `${scrollProgress}%` }}
+      ></div>
+    </div>
   )
 }
 

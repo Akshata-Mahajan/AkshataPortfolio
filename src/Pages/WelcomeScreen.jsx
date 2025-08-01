@@ -14,11 +14,11 @@ const HeroIcon = ({ Icon, delay = 0 }) => (
     transition={{ delay: delay * 0.3, duration: 0.8, type: "spring", stiffness: 100 }}
   >
     <motion.div
-      className="relative p-6 bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-full border border-indigo-500/30"
+      className="relative p-3 sm:p-4 md:p-6 bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-full border border-indigo-500/30"
       whileHover={{ scale: 1.1, boxShadow: "0 0 30px rgba(99, 102, 241, 0.5)" }}
       transition={{ duration: 0.3 }}
     >
-      <Icon className="w-10 h-10 text-indigo-400" />
+      <Icon className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-indigo-400" />
       <motion.div
         className="absolute inset-0 rounded-full border-2 border-purple-500/20"
         animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.8, 0.3] }}
@@ -96,13 +96,13 @@ const WelcomeScreen = ({ onLoadingComplete }) => {
           exit={{ opacity: 0, scale: 1.1, transition: { duration: 1, ease: "easeInOut" } }}
         >
           <BackgroundEffect />
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(99,102,241,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.1)_1px,transparent_1px)] bg-[size:100px_100px] opacity-20" />
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(99,102,241,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.1)_1px,transparent_1px)] bg-[size:50px_50px] sm:bg-[size:75px_75px] md:bg-[size:100px_100px] opacity-20" />
 
-          <div className="relative min-h-screen flex items-center justify-center px-4">
+          <div className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-8">
             <div className="w-full max-w-4xl mx-auto text-center">
               {showIcons && (
                 <motion.div
-                  className="flex justify-center gap-12 mb-16"
+                  className="flex justify-center gap-4 sm:gap-8 md:gap-12 mb-8 sm:mb-12 md:mb-16"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.5 }}
@@ -114,13 +114,33 @@ const WelcomeScreen = ({ onLoadingComplete }) => {
               )}
 
               {showName && (
-                <motion.div className="mb-8" initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}>
-                  <motion.h1 className="text-6xl md:text-8xl font-black tracking-wider" initial={{ letterSpacing: "0.5em", opacity: 0 }} animate={{ letterSpacing: "0.1em", opacity: 1 }} transition={{ duration: 1.5 }}>
-                    <motion.span className="inline-block bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent" initial={{ rotateX: -90 }} animate={{ rotateX: 0 }} transition={{ delay: 0.2, duration: 0.8 }}>
+                <motion.div 
+                  className="mb-6 sm:mb-8 md:mb-8" 
+                  initial={{ opacity: 0, y: 50 }} 
+                  animate={{ opacity: 1, y: 0 }} 
+                  transition={{ duration: 1 }}
+                >
+                  <motion.h1 
+                    className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-wider leading-tight" 
+                    initial={{ letterSpacing: "0.5em", opacity: 0 }} 
+                    animate={{ letterSpacing: "0.1em", opacity: 1 }} 
+                    transition={{ duration: 1.5 }}
+                  >
+                    <motion.span 
+                      className="inline-block bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent" 
+                      initial={{ rotateX: -90 }} 
+                      animate={{ rotateX: 0 }} 
+                      transition={{ delay: 0.2, duration: 0.8 }}
+                    >
                       AKSHATA
                     </motion.span>
                     <br />
-                    <motion.span className="inline-block bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent" initial={{ rotateX: -90 }} animate={{ rotateX: 0 }} transition={{ delay: 0.6, duration: 0.8 }}>
+                    <motion.span 
+                      className="inline-block bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent" 
+                      initial={{ rotateX: -90 }} 
+                      animate={{ rotateX: 0 }} 
+                      transition={{ delay: 0.6, duration: 0.8 }}
+                    >
                       MAHAJAN
                     </motion.span>
                   </motion.h1>
@@ -128,19 +148,55 @@ const WelcomeScreen = ({ onLoadingComplete }) => {
               )}
 
               {showTitle && (
-                <motion.div className="mb-12" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }}>
-                  <motion.div className="text-2xl md:text-4xl font-bold mb-4" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.6 }}>
-                    <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">FULL-STACK DEVELOPER</span>
-                    <span className="text-white/80"> & </span>
-                    <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">INNOVATOR</span>
+                <motion.div 
+                  className="mb-8 sm:mb-10 md:mb-12" 
+                  initial={{ opacity: 0, scale: 0.8 }} 
+                  animate={{ opacity: 1, scale: 1 }} 
+                  transition={{ duration: 0.8 }}
+                >
+                  <motion.div 
+                    className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold mb-3 sm:mb-4 md:mb-4 leading-relaxed" 
+                    initial={{ opacity: 0, y: 20 }} 
+                    animate={{ opacity: 1, y: 0 }} 
+                    transition={{ delay: 0.3, duration: 0.6 }}
+                  >
+                    <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+                      FULL-STACK DEVELOPER
+                    </span>
+                    <span className="text-white/80">  </span>
+                    <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    </span>
                   </motion.div>
-                  <motion.div className="w-32 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 mx-auto rounded-full" initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 0.6, duration: 0.8 }} />
-                  <motion.p className="text-lg text-white/70 mt-6 max-w-2xl mx-auto" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9, duration: 0.6 }}>
+                  
+                  <motion.div 
+                    className="w-20 sm:w-24 md:w-32 h-0.5 sm:h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 mx-auto rounded-full" 
+                    initial={{ scaleX: 0 }} 
+                    animate={{ scaleX: 1 }} 
+                    transition={{ delay: 0.6, duration: 0.8 }} 
+                  />
+                  
+                  <motion.p 
+                    className="text-sm sm:text-base md:text-lg text-white/70 mt-4 sm:mt-5 md:mt-6 max-w-xs sm:max-w-sm md:max-w-2xl mx-auto leading-relaxed px-2 sm:px-4" 
+                    initial={{ opacity: 0, y: 20 }} 
+                    animate={{ opacity: 1, y: 0 }} 
+                    transition={{ delay: 0.9, duration: 0.6 }}
+                  >
                     Crafting digital experiences with passion, precision, and cutting-edge technology
                   </motion.p>
-                  <motion.div className="flex justify-center mt-8 gap-2" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2, duration: 0.6 }}>
+                  
+                  <motion.div 
+                    className="flex justify-center mt-6 sm:mt-7 md:mt-8 gap-1.5 sm:gap-2" 
+                    initial={{ opacity: 0 }} 
+                    animate={{ opacity: 1 }} 
+                    transition={{ delay: 1.2, duration: 0.6 }}
+                  >
                     {[...Array(3)].map((_, i) => (
-                      <motion.div key={i} className="w-2 h-2 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-full" animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, delay: i * 0.3 }} />
+                      <motion.div 
+                        key={i} 
+                        className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-full" 
+                        animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} 
+                        transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, delay: i * 0.3 }} 
+                      />
                     ))}
                   </motion.div>
                 </motion.div>
